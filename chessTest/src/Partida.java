@@ -127,6 +127,10 @@ public class Partida {
         return false;
     }
 
+    public void darParabensAoGanhador(Jogador jogador) {
+        System.out.println("Parabéns " + jogador + ", você ganhou!");
+    }
+
     public void mostrarPecasBrancasEPretasComida() {
         System.out.println(pecasBrancas);
         System.out.println(pecasPretas);
@@ -175,24 +179,20 @@ public class Partida {
         boolean rodarPartida = true;
 
         while (rodarPartida) { // Partida rodando
-            int[] pecasTotais = tabuleiro.contadorDePecas();
-            int pretas = pecasTotais[0];
-            int brancas = pecasTotais[1];
-
             jogada(jogadores[0]);
             if (checadorDeReiNasComidasParaVerXequeMate()) {
+                darParabensAoGanhador(jogadores[0]);
                 rodarPartida = false;
             }
             tabuleiro.checadorDePeaoUltimaColuna();
 
             jogada(jogadores[1]);
             if (checadorDeReiNasComidasParaVerXequeMate()) {
+                darParabensAoGanhador(jogadores[1]);
                 rodarPartida = false;
             }
             tabuleiro.checadorDePeaoUltimaColuna();
         }
-
-        System.out.println("Cabooooooooo");
 
     }
 }

@@ -38,7 +38,7 @@ public class Bispo extends Peca {
             if (novaLinha >= 0 && novaLinha < tabuleiro.getLinhas() && novaColuna >= 0
                     && novaColuna < tabuleiro.getColunas()) {
                 Position novaPosicao = new Position(novaLinha, novaColuna);
-                Peca possivelPeca = tabuleiro.checadorDePecaNaPosicao(novaPosicao);
+                Peca possivelPeca = tabuleiro.pegarPosicaoEspecifica(novaPosicao);
 
                 // Se a posição estiver livre, o bispo pode se mover
                 if (possivelPeca == null) {
@@ -71,7 +71,7 @@ public class Bispo extends Peca {
             if (novaLinha >= 0 && novaLinha < tabuleiro.getLinhas() && novaColuna >= 0
                     && novaColuna < tabuleiro.getColunas()) {
                 Position novaPosicao = new Position(novaLinha, novaColuna);
-                Peca possivelPeca = tabuleiro.checadorDePecaNaPosicao(novaPosicao);
+                Peca possivelPeca = tabuleiro.pegarPosicaoEspecifica(novaPosicao);
 
                 // Se a posição estiver livre, o bispo pode se mover
                 if (possivelPeca == null) {
@@ -104,7 +104,7 @@ public class Bispo extends Peca {
             if (novaLinha >= 0 && novaLinha < tabuleiro.getLinhas() && novaColuna >= 0
                     && novaColuna < tabuleiro.getColunas()) {
                 Position novaPosicao = new Position(novaLinha, novaColuna);
-                Peca possivelPeca = tabuleiro.checadorDePecaNaPosicao(novaPosicao);
+                Peca possivelPeca = tabuleiro.pegarPosicaoEspecifica(novaPosicao);
 
                 // Se a posição estiver livre, o bispo pode se mover
                 if (possivelPeca == null) {
@@ -137,7 +137,7 @@ public class Bispo extends Peca {
             if (novaLinha >= 0 && novaLinha < tabuleiro.getLinhas() && novaColuna >= 0
                     && novaColuna < tabuleiro.getColunas()) {
                 Position novaPosicao = new Position(novaLinha, novaColuna);
-                Peca possivelPeca = tabuleiro.checadorDePecaNaPosicao(novaPosicao);
+                Peca possivelPeca = tabuleiro.pegarPosicaoEspecifica(novaPosicao);
 
                 // Se a posição estiver livre, o bispo pode se mover
                 if (possivelPeca == null) {

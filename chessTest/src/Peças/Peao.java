@@ -40,7 +40,7 @@ public class Peao extends Peca {
                     if (linha != linhaAtual) {
 
                         Position posicaoChecada = new Position(linha, coluna);
-                        Peca pecaNaPosicaoAtual = tabuleiro.checadorDePecaNaPosicao(posicaoChecada);
+                        Peca pecaNaPosicaoAtual = tabuleiro.pegarPosicaoEspecifica(posicaoChecada);
 
                         // Se a coluna for maior ou menor (diagonal)
                         if (posicaoChecada.getColuna() < colunaAtual || posicaoChecada.getColuna() > colunaAtual) {
@@ -63,7 +63,7 @@ public class Peao extends Peca {
                                     Position posicaoDaFrente = new Position(linha - 1, colunaAtual);
                                     possiveisMovimentos[linha][coluna] = posicaoChecada;
 
-                                    Peca pecaNaSegundaCasa = tabuleiro.checadorDePecaNaPosicao(posicaoDaFrente);
+                                    Peca pecaNaSegundaCasa = tabuleiro.pegarPosicaoEspecifica(posicaoDaFrente);
                                     if (pecaNaSegundaCasa == null) {
 
                                         possiveisMovimentos[linha - 1][coluna] = posicaoDaFrente;
@@ -75,7 +75,7 @@ public class Peao extends Peca {
                                     Position posicaoDaFrente = new Position(linha + 1, colunaAtual);
                                     possiveisMovimentos[linha][coluna] = posicaoChecada;
 
-                                    Peca pecaNaSegundaCasa = tabuleiro.checadorDePecaNaPosicao(posicaoDaFrente);
+                                    Peca pecaNaSegundaCasa = tabuleiro.pegarPosicaoEspecifica(posicaoDaFrente);
                                     if (pecaNaSegundaCasa == null) {
 
                                         possiveisMovimentos[linha + 1][coluna] = posicaoDaFrente;

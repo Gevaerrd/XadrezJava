@@ -136,31 +136,6 @@ public class Tabuleiro {
         }
     }
 
-    public int[] contadorDePecas() {
-
-        int[] totalDePecas = new int[2];
-
-        for (int linha = 0; linha < getLinhas(); linha++) {
-            for (int coluna = 0; coluna < getColunas(); coluna++) {
-
-                Position posicaoParaChecar = new Position(linha, coluna);
-                Peca possivelPeca = pecas[linha][coluna];
-
-                if (possivelPeca != null && possivelPeca.getCor() == Color.BLACK) {
-                    totalDePecas[0] = totalDePecas[0] += 1;
-
-                }
-
-                else if (possivelPeca != null && possivelPeca.getCor() == Color.WHITE) {
-                    totalDePecas[1] = totalDePecas[1] += 1;
-
-                }
-
-            }
-        }
-        return totalDePecas;
-    }
-
     public void promoverPeao(Peca peao) {
         Scanner scanner = new Scanner(System.in);
         String[] opcoes = { "D", "T", "B", "C" };
@@ -246,14 +221,6 @@ public class Tabuleiro {
 
     public Peca pegarPosicaoEspecifica(Position posicao) {
         return pecas[posicao.getLinha()][posicao.getColuna()]; // Recebe uma posicao especifica e retorna o que nele
-    }
-
-    public Peca checadorDePecaNaPosicao(Position posicao) {
-        Peca peca = pecas[posicao.getLinha()][posicao.getColuna()];
-        if (peca != null) {
-            return pegarPosicaoEspecifica(posicao);
-        }
-        return null;
     }
 
     public boolean checadorDePecaNaPosicaoBooleano(Position posicao) {

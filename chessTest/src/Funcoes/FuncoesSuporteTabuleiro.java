@@ -89,8 +89,8 @@ public class FuncoesSuporteTabuleiro {
 
         while (true) {
 
-            String fraseParaEscolherPeca = "Digite a linha da peça escolhida: ";
-            String fraseParaEscolherColuna = "Digite a coluna da peça escolhida: ";
+            String fraseParaEscolherPeca = jogador.getColor() + ", Digite a linha da peça escolhida: ";
+            String fraseParaEscolherColuna = jogador.getColor() + ", Digite a coluna da peça escolhida: ";
             int linha = pegarLinha(scanner, fraseParaEscolherPeca);
             clear();
             int coluna = pegarEntradaEValidarColuna(scanner, fraseParaEscolherColuna);
