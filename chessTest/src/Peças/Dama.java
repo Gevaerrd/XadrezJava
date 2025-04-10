@@ -24,7 +24,7 @@ public class Dama extends Peca {
     // Dama pode ir para qualquer lugar do tabuleiro desde que não pule peças
     public Position[][] possiveisMovimentos() {
         Tabuleiro tabuleiro = getTabuleiro();
-        Position posicaoAtual = getPosicao();
+        Position posicaoAtual = (Position) getPosicao();
         Position[][] possiveisMovimentos = new Position[tabuleiro.getLinhas()][tabuleiro.getColunas()];
 
         boolean movimentoParaCima = true;
@@ -246,6 +246,11 @@ public class Dama extends Peca {
         }
 
         return possiveisMovimentos;
+    }
+
+    @Override
+    public String toString() {
+        return "D";
     }
 
 }

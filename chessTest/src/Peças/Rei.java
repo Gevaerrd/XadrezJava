@@ -23,6 +23,7 @@ public class Rei extends Peca {
         super(tabuleiro, cor, posicao);
     }
 
+    @Override
     public Position[][] possiveisMovimentos() {
 
         Tabuleiro tabuleiro = getTabuleiro();
@@ -54,5 +55,10 @@ public class Rei extends Peca {
             }
         }
         return possiveisMovimentos;
+    }
+
+    @Override
+    public String toString() {
+        return "R";
     }
 }

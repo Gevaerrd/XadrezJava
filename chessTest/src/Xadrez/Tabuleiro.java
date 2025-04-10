@@ -1,5 +1,6 @@
 package Xadrez;
 
+import Aplicacao.UI;
 import Peças.Bispo;
 import Peças.Cavalo;
 import Peças.Color;
@@ -16,8 +17,10 @@ public class Tabuleiro {
 
     private int linhas;
     private int colunas;
+    private UI ui;
 
     Peca[][] pecas;
+    public String frase;
 
     public Tabuleiro() {
 
@@ -28,6 +31,7 @@ public class Tabuleiro {
         this.linhas = linhas;
         this.colunas = colunas;
         pecas = new Peca[linhas][colunas];
+        ui = new UI();
 
     }
 
@@ -49,7 +53,11 @@ public class Tabuleiro {
     // Função para registrar uma peça na matriz do começo
     public void moverParaPosicaoNoTabuleiro(Peca peca) { // Vai receber uma peca
         Position posicaoDaPeca = peca.getPosicao(); // Pega a posicao instaciada nela
-        pecas[posicaoDaPeca.getLinha()][posicaoDaPeca.getColuna()] = peca; // Adiciona na matriz essa peca
+        if (!checadorDePecaNaPosicaoBooleano(posicaoDaPeca)) {
+
+            pecas[posicaoDaPeca.getLinha()][posicaoDaPeca.getColuna()] = peca; // Adiciona na matriz essa peca
+        }
+
     }
 
     public void moverParaPosicaoNoTabuleiroComPosicao(Peca peca, Position posicao) { // Vai receber uma peca
@@ -75,13 +83,7 @@ public class Tabuleiro {
                 Position position = new Position(i, y);
                 Peca peca = pegarPosicaoEspecifica(position);
 
-                if (peca != null) {
-                    System.out.print(peca.getInicialPeca(peca) + "  "); // Exibe o símbolo da peça
-                }
-
-                else {
-                    System.out.print("-  "); // Caso não haja peça na posição
-                }
+                ui.printPiece(peca);
             }
             System.out.println(); // Quebra de linha após imprimir cada linha
         }
@@ -122,14 +124,12 @@ public class Tabuleiro {
                 // Se o movimento for válido, imprime o símbolo de "check" (✔)
                 if (movimentoValido) {
                     System.out.print("*  "); // Exibe o símbolo de certo (✔)
-                } else {
+                }
+
+                else {
                     // Se não for movimento válido, imprime a peça ou um "-".
                     Peca peca = pegarPosicaoEspecifica(posicaoParaChecar);
-                    if (peca != null) {
-                        System.out.print(peca.getInicialPeca(peca) + "  "); // Exibe o símbolo da peça
-                    } else {
-                        System.out.print("-  "); // Caso não haja peça na posição
-                    }
+                    ui.printPiece(peca);
                 }
             }
             System.out.println(); // Quebra de linha após imprimir cada linha

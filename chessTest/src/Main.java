@@ -1,3 +1,5 @@
+
+import Aplicacao.Partida;
 import java.util.Scanner;
 
 public class Main {

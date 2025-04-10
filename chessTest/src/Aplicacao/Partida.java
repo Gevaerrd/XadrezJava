@@ -1,5 +1,7 @@
-import Funcoes.FuncoesSuporteTabuleiro;
-import Funcoes.funcaoJogadorInicial;
+package Aplicacao;
+
+import FuncoesParaSuporte.ConfiguracaoJogadorInicial;
+import FuncoesParaSuporte.FuncoesDeComplementoTabuleiro;
 import Jogador.Jogador;
 import Peças.Bispo;
 import Peças.Cavalo;
@@ -19,13 +21,13 @@ public class Partida {
     private List<Peca> pecasBrancas = new ArrayList<>();
     private List<Peca> pecasPretas = new ArrayList<>();
     private Tabuleiro tabuleiro;
-    funcaoJogadorInicial funcaoDeEscolha = new funcaoJogadorInicial();
+    ConfiguracaoJogadorInicial funcaoDeEscolha = new ConfiguracaoJogadorInicial();
     Jogador[] jogadores = funcaoDeEscolha.escolherJogador(new Jogador(Color.BLACK), new Jogador(Color.WHITE));
-    FuncoesSuporteTabuleiro funcoesSuporte;
+    FuncoesDeComplementoTabuleiro funcoesSuporte;
 
     public Partida() {
         tabuleiro = new Tabuleiro(8, 8);
-        funcoesSuporte = new FuncoesSuporteTabuleiro(tabuleiro);
+        funcoesSuporte = new FuncoesDeComplementoTabuleiro(tabuleiro);
     }
 
     public void clear() {
@@ -48,50 +50,64 @@ public class Partida {
         // Inicializar as peças pretas
         for (int i = 0; i < 8; i++) { // Agora vai de 0 até 7
             // Criar os peões pretos na linha 7 (índice 6)
-            Peao peaoPreto = new Peao(tabuleiro, Color.BLACK, new Position(6, i)); // Ajuste para linha 7 no tabuleiro
+            Peao peaoPreto = new Peao(tabuleiro, Color.BLACK, new Position(6, i)); // Ajuste para linha 7 no
+                                                                                   // tabuleiro
             tabuleiro.moverParaPosicaoNoTabuleiro(peaoPreto); // Inserir no tabuleiro
         }
 
         // Peças maiores pretas
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Torre(tabuleiro, Color.BLACK, new Position(7, 0))); // Linha 8, Coluna
-                                                                                                      // 1
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Torre(tabuleiro, Color.BLACK, new Position(7, 7))); // Linha 8, Coluna
-                                                                                                      // 8
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Torre(tabuleiro, Color.BLACK, new Position(7, 0))); // Linha 8,
+                                                                                                      // Coluna
+        // 1
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Torre(tabuleiro, Color.BLACK, new Position(7, 7))); // Linha 8,
+                                                                                                      // Coluna
+        // 8
         tabuleiro.moverParaPosicaoNoTabuleiro(new Cavalo(tabuleiro, Color.BLACK, new Position(7, 1))); // Linha 8,
-                                                                                                       // Coluna 2
+        // Coluna 2
         tabuleiro.moverParaPosicaoNoTabuleiro(new Cavalo(tabuleiro, Color.BLACK, new Position(7, 6))); // Linha 8,
-                                                                                                       // Coluna 7
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Bispo(tabuleiro, Color.BLACK, new Position(7, 2))); // Linha 8, Coluna
-                                                                                                      // 3
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Bispo(tabuleiro, Color.BLACK, new Position(7, 5))); // Linha 8, Coluna
-                                                                                                      // 6
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Dama(tabuleiro, Color.BLACK, new Position(7, 3))); // Linha 8, Coluna
-                                                                                                     // 4
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Rei(tabuleiro, Color.BLACK, new Position(7, 4))); // Linha 8, Coluna 5
+        // Coluna 7
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Bispo(tabuleiro, Color.BLACK, new Position(7, 2))); // Linha 8,
+                                                                                                      // Coluna
+        // 3
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Bispo(tabuleiro, Color.BLACK, new Position(7, 5))); // Linha 8,
+                                                                                                      // Coluna
+        // 6
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Dama(tabuleiro, Color.BLACK, new Position(7, 3))); // Linha 8,
+                                                                                                     // Coluna
+        // 4
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Rei(tabuleiro, Color.BLACK, new Position(7, 4))); // Linha 8,
+                                                                                                    // Coluna 5
 
         // Inicializar as peças brancas
         for (int i = 0; i < 8; i++) { // Agora vai de 0 até 7
             // Criar os peões brancos na linha 2 (índice 1)
-            Peao peaoBranco = new Peao(tabuleiro, Color.WHITE, new Position(1, i)); // Ajuste para linha 2 no tabuleiro
+            Peao peaoBranco = new Peao(tabuleiro, Color.WHITE, new Position(1, i)); // Ajuste para linha 2 no
+                                                                                    // tabuleiro
             tabuleiro.moverParaPosicaoNoTabuleiro(peaoBranco); // Inserir no tabuleiro
         }
 
         // Peças maiores brancas
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Torre(tabuleiro, Color.WHITE, new Position(0, 0))); // Linha 1, Coluna
-                                                                                                      // 1
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Torre(tabuleiro, Color.WHITE, new Position(0, 7))); // Linha 1, Coluna
-                                                                                                      // 8
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Torre(tabuleiro, Color.WHITE, new Position(0, 0))); // Linha 1,
+                                                                                                      // Coluna
+        // 1
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Torre(tabuleiro, Color.WHITE, new Position(0, 7))); // Linha 1,
+                                                                                                      // Coluna
+        // 8
         tabuleiro.moverParaPosicaoNoTabuleiro(new Cavalo(tabuleiro, Color.WHITE, new Position(0, 1))); // Linha 1,
-                                                                                                       // Coluna 2
+        // Coluna 2
         tabuleiro.moverParaPosicaoNoTabuleiro(new Cavalo(tabuleiro, Color.WHITE, new Position(0, 6))); // Linha 1,
-                                                                                                       // Coluna 7
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Bispo(tabuleiro, Color.WHITE, new Position(0, 2))); // Linha 1, Coluna
-                                                                                                      // 3
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Bispo(tabuleiro, Color.WHITE, new Position(0, 5))); // Linha 1, Coluna
-                                                                                                      // 6
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Dama(tabuleiro, Color.WHITE, new Position(0, 3))); // Linha 1, Coluna
-                                                                                                     // 4
-        tabuleiro.moverParaPosicaoNoTabuleiro(new Rei(tabuleiro, Color.WHITE, new Position(0, 4))); // Linha 1, Coluna 5
+        // Coluna 7
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Bispo(tabuleiro, Color.WHITE, new Position(0, 2))); // Linha 1,
+                                                                                                      // Coluna
+        // 3
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Bispo(tabuleiro, Color.WHITE, new Position(0, 5))); // Linha 1,
+                                                                                                      // Coluna
+        // 6
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Dama(tabuleiro, Color.WHITE, new Position(0, 3))); // Linha 1,
+                                                                                                     // Coluna
+        // 4
+        tabuleiro.moverParaPosicaoNoTabuleiro(new Rei(tabuleiro, Color.WHITE, new Position(0, 4))); // Linha 1,
+                                                                                                    // Coluna 5
     }
 
     public void adicionarPecasAListaDePecasComida(Peca peca) {
@@ -148,7 +164,7 @@ public class Partida {
             Peca peca = funcoesSuporte.pegarPecaQueVaiSerMovida(jogador);
 
             // Checa se a pessoa tem movimentos possiveis para prosseguir
-            if (!funcoesSuporte.checadorDeMovimentoParaPeca(peca.possiveisMovimentos())) {
+            if (!funcoesSuporte.checadorDeMovimentoParaPeca((Position[][]) peca.possiveisMovimentos())) {
                 System.out.println("Essa peça não tem movimentos validos...");
                 Thread.sleep(3000);
                 continue;

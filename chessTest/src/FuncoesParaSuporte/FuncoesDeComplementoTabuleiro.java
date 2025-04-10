@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package Funcoes;
+package FuncoesParaSuporte;
 
 import Jogador.Jogador;
 import Peças.Peca;
@@ -15,12 +15,12 @@ import java.util.Scanner;
  *
  * @author Pichau
  */
-public class FuncoesSuporteTabuleiro {
+public class FuncoesDeComplementoTabuleiro {
 
     private Tabuleiro tabuleiro;
     Scanner scanner = new Scanner(System.in);
 
-    public FuncoesSuporteTabuleiro(Tabuleiro tabuleiro) {
+    public FuncoesDeComplementoTabuleiro(Tabuleiro tabuleiro) {
 
         this.tabuleiro = tabuleiro;
 
@@ -46,9 +46,10 @@ public class FuncoesSuporteTabuleiro {
 
     }
 
-    public int pegarLinha(Scanner scanner, String frase) { // Pega a linha entre 1 a 8
+    public int pegarLinhaComPeca(Scanner scanner, String frase, Peca peca) { // Pega a linha entre 1 a 8
         while (true) {
             clear(); // Apenas uma vez, antes de pedir a entrada
+            tabuleiro.mostrarTabuleiroComMovimentos(peca);
             System.out.println(frase);
 
             if (scanner.hasNextInt()) {
@@ -56,17 +57,52 @@ public class FuncoesSuporteTabuleiro {
 
                 if (linha >= 1 && linha <= 8) {
                     return linha - 1;
-                } else {
-                    System.out.println("Erro: Entrada inválida. Por favor, digite um número entre 1 e 8.");
                 }
-            } else {
+
+                else {
+                    scanner.nextLine();
+                    clear();
+                    tabuleiro.mostrarTabuleiroComMovimentos(peca);
+                }
+            }
+
+            else {
                 scanner.nextLine(); // Limpa a entrada inválida
+                clear();
                 System.out.println("Erro: Entrada inválida. Por favor, digite um número entre 1 e 8.");
             }
         }
     }
 
-    public int pegarEntradaEValidarColuna(Scanner scanner, String frase) {
+    public int pegarLinhaSemPeca(Scanner scanner, String frase) { // Pega a linha entre 1 a 8
+        while (true) {
+            clear(); // Apenas uma vez, antes de pedir a entrada
+            tabuleiro.mostrarTabuleiro();
+            System.out.println(frase);
+
+            if (scanner.hasNextInt()) {
+                int linha = scanner.nextInt();
+
+                if (linha >= 1 && linha <= 8) {
+                    return linha - 1;
+                }
+
+                else {
+                    scanner.nextLine();
+                    clear();
+                    tabuleiro.mostrarTabuleiro();
+                }
+            }
+
+            else {
+                scanner.nextLine(); // Limpa a entrada inválida
+                tabuleiro.mostrarTabuleiro();
+                frase = "Você não digitou um número, vamos novamente!";
+            }
+        }
+    }
+
+    public int pegarEntradaEValidarColunaComPeca(Scanner scanner, String frase, Peca peca) {
 
         while (true) {
             clear();
@@ -80,7 +116,28 @@ public class FuncoesSuporteTabuleiro {
 
             }
 
-            System.out.println("Por favor digite uma coluna entre A - H");
+            clear();
+            tabuleiro.mostrarTabuleiroComMovimentos(peca);
+
+        }
+    }
+
+    public int pegarEntradaEValidarColunaSemPeca(Scanner scanner, String frase) {
+
+        while (true) {
+            clear();
+            System.out.println(frase);
+            String coluna = scanner.next().toUpperCase();
+            char caracterValidado = coluna.charAt(0);
+            for (char c = 'A'; c <= 'H'; c++) {
+                if (caracterValidado == c) {
+                    return transformarCharEmNumero(c);
+                }
+
+            }
+
+            clear();
+            tabuleiro.mostrarTabuleiro();
 
         }
     }
@@ -89,11 +146,11 @@ public class FuncoesSuporteTabuleiro {
 
         while (true) {
 
-            String fraseParaEscolherPeca = jogador.getColor() + ", Digite a linha da peça escolhida: ";
-            String fraseParaEscolherColuna = jogador.getColor() + ", Digite a coluna da peça escolhida: ";
-            int linha = pegarLinha(scanner, fraseParaEscolherPeca);
+            String fraseParaEscolherPeca = jogador.getColor() + ", Digite a linha da peça que você quer mover: ";
+            String fraseParaEscolherColuna = jogador.getColor() + ", Digite a coluna da peça que você quer mover: ";
+            int coluna = pegarEntradaEValidarColunaSemPeca(scanner, fraseParaEscolherColuna);
             clear();
-            int coluna = pegarEntradaEValidarColuna(scanner, fraseParaEscolherColuna);
+            int linha = pegarLinhaSemPeca(scanner, fraseParaEscolherPeca);
 
             Position posicao = new Position(linha, coluna);
 
@@ -105,12 +162,6 @@ public class FuncoesSuporteTabuleiro {
                 // Retorna a peca na posicao especifica
                 return tabuleiro.pegarPosicaoEspecifica(posicao);
             }
-
-            // Caso contrario da print
-            clear();
-            tabuleiro.mostrarTabuleiro();
-            System.out.println("Você não passou as coordenadas de uma peça existente ou da sua cor, vamos novamente");
-            Thread.sleep(2);
         }
 
     }
@@ -120,8 +171,8 @@ public class FuncoesSuporteTabuleiro {
         while (true) {
             String fraseParaLinhaDestino = "Digite a linha do destino da peça: ";
             String fraseParaColunaDestino = "Digite a coluna do destino da peça";
-            int linha = pegarLinha(scanner, fraseParaLinhaDestino);
-            int coluna = pegarEntradaEValidarColuna(scanner, fraseParaColunaDestino);
+            int coluna = pegarEntradaEValidarColunaComPeca(scanner, fraseParaColunaDestino, peca);
+            int linha = pegarLinhaComPeca(scanner, fraseParaLinhaDestino, peca);
 
             Position posicaoEscolhida = new Position(linha, coluna);
 

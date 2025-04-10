@@ -24,7 +24,7 @@ public class Peao extends Peca {
 
         Tabuleiro tabuleiro = getTabuleiro();
         Position[][] possiveisMovimentos = new Position[tabuleiro.getLinhas()][tabuleiro.getColunas()];
-        Position posicaoDaPeca = getPosicao();
+        Position posicaoDaPeca = (Position) getPosicao();
         int linhaAtual = posicaoDaPeca.getLinha();
         int colunaAtual = posicaoDaPeca.getColuna();
 
@@ -109,5 +109,10 @@ public class Peao extends Peca {
             }
         }
         return possiveisMovimentos;
+    }
+
+    @Override
+    public String toString() {
+        return "P";
     }
 }

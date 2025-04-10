@@ -164,4 +164,8 @@ public class Bispo extends Peca {
         return posicoes;
     }
 
+    @Override
+    public String toString() {
+        return "B";
+    }
 }
