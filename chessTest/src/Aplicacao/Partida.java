@@ -121,10 +121,6 @@ public class Partida {
             }
 
         }
-
-        else {
-
-        }
     }
 
     public boolean checadorDeReiNasComidasParaVerXequeMate() {

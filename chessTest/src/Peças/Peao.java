@@ -47,8 +47,18 @@ public class Peao extends Peca {
 
                             // Se tiver peça e for cor diferente
                             if (pecaNaPosicaoAtual != null && pecaNaPosicaoAtual.getCor() != getCor()) {
-                                // Captura, não precisa do break pq só checa as diagonais no limite
-                                possiveisMovimentos[linha][coluna] = posicaoChecada;
+
+                                if (getCor() == Color.BLACK && linha < linhaAtual) {
+
+                                    // Captura, não precisa do break pq só checa as diagonais no limite
+                                    possiveisMovimentos[linha][coluna] = posicaoChecada;
+                                }
+
+                                else if (getCor() == Color.WHITE && linha > linhaAtual) {
+
+                                    // Captura, não precisa do break pq só checa as diagonais no limite
+                                    possiveisMovimentos[linha][coluna] = posicaoChecada;
+                                }
                             }
 
                         }
@@ -64,7 +74,7 @@ public class Peao extends Peca {
                                     possiveisMovimentos[linha][coluna] = posicaoChecada;
 
                                     Peca pecaNaSegundaCasa = tabuleiro.pegarPosicaoEspecifica(posicaoDaFrente);
-                                    if (pecaNaSegundaCasa == null) {
+                                    if (pecaNaSegundaCasa == null || pecaNaSegundaCasa.getCor() != getCor()) {
 
                                         possiveisMovimentos[linha - 1][coluna] = posicaoDaFrente;
                                     }
@@ -76,7 +86,7 @@ public class Peao extends Peca {
                                     possiveisMovimentos[linha][coluna] = posicaoChecada;
 
                                     Peca pecaNaSegundaCasa = tabuleiro.pegarPosicaoEspecifica(posicaoDaFrente);
-                                    if (pecaNaSegundaCasa == null) {
+                                    if (pecaNaSegundaCasa == null || pecaNaSegundaCasa.getCor() != getCor()) {
 
                                         possiveisMovimentos[linha + 1][coluna] = posicaoDaFrente;
                                     }

@@ -213,10 +213,12 @@ public class Tabuleiro {
 
         Position posicaoDaPecaComida = pecaComida.getPosicao(); // Pega a posicao instaciada nela
         Position posicaoDaPecaNova = pecaNova.getPosicao();
+        // Deixando a posicao da peca que vai se mexer null
         pecas[posicaoDaPecaNova.getLinha()][posicaoDaPecaNova.getColuna()] = null;
-        pecas[posicaoDaPecaComida.getLinha()][posicaoDaPecaComida.getColuna()] = pecaNova; // Adiciona na matriz essa
-                                                                                           // peca
+        pecas[posicaoDaPecaComida.getLinha()][posicaoDaPecaComida.getColuna()] = null;
         pecaNova.setPosicao(posicaoDaPecaComida);
+        // Movendo para a posição da peça antiga
+        moverParaPosicaoNoTabuleiro(pecaNova);
     }
 
     public Peca pegarPosicaoEspecifica(Position posicao) {

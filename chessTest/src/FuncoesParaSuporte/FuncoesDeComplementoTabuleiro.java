@@ -46,113 +46,106 @@ public class FuncoesDeComplementoTabuleiro {
 
     }
 
-    public int pegarLinhaComPeca(Scanner scanner, String frase, Peca peca) { // Pega a linha entre 1 a 8
+    public Position pegarOrigem(Scanner scanner, Jogador jogador) {
+
+        String frase = "Origem " + jogador.getColor() + ": ";
+
         while (true) {
-            clear(); // Apenas uma vez, antes de pedir a entrada
-            tabuleiro.mostrarTabuleiroComMovimentos(peca);
+
+            clear();
             System.out.println(frase);
+            String source = scanner.nextLine().toUpperCase(); // Garantir que a entrada seja em maiúsculas
 
-            if (scanner.hasNextInt()) {
-                int linha = scanner.nextInt();
-
-                if (linha >= 1 && linha <= 8) {
-                    return linha - 1;
-                }
-
-                else {
-                    scanner.nextLine();
-                    clear();
-                    tabuleiro.mostrarTabuleiroComMovimentos(peca);
-                }
-            }
-
-            else {
-                scanner.nextLine(); // Limpa a entrada inválida
-                clear();
-                System.out.println("Erro: Entrada inválida. Por favor, digite um número entre 1 e 8.");
-            }
-        }
-    }
-
-    public int pegarLinhaSemPeca(Scanner scanner, String frase) { // Pega a linha entre 1 a 8
-        while (true) {
-            clear(); // Apenas uma vez, antes de pedir a entrada
-            tabuleiro.mostrarTabuleiro();
-            System.out.println(frase);
-
-            if (scanner.hasNextInt()) {
-                int linha = scanner.nextInt();
-
-                if (linha >= 1 && linha <= 8) {
-                    return linha - 1;
-                }
-
-                else {
-                    scanner.nextLine();
-                    clear();
-                    tabuleiro.mostrarTabuleiro();
-                }
-            }
-
-            else {
-                scanner.nextLine(); // Limpa a entrada inválida
+            // Verifica se a entrada tem pelo menos dois caracteres
+            if (source.length() < 2) {
                 tabuleiro.mostrarTabuleiro();
-                frase = "Você não digitou um número, vamos novamente!";
+                System.out.println("Entrada inválida, tente novamente.");
+                continue;
+            }
+
+            // Verifica se o caractere da coluna está entre 'A' e 'H'
+            if (source.charAt(0) >= 'A' && source.charAt(0) <= 'H') {
+
+                // Converte a coluna de 'A' até 'H' para números (0 a 7)
+                int coluna = transformarCharEmNumero(source.charAt(0));
+
+                // Tenta obter a linha (pode ser um número de 1 a 9 ou maior)
+                int linha;
+                try {
+                    linha = Integer.parseInt(source.substring(1)); // Pega tudo depois do primeiro caractere (a linha)
+                    linha = linha - 1;
+                }
+
+                catch (NumberFormatException e) {
+                    System.out.println("Linha inválida...");
+                    continue;
+                }
+
+                // Verifica se a posição é válida no tabuleiro
+                if (tabuleiro.checadorDePecaNaPosicaoBooleano(new Position(linha, coluna))) {
+                    return new Position(linha, coluna);
+                }
+
+                else {
+                    tabuleiro.mostrarTabuleiro();
+                    System.out.println("Posição inválida...");
+                }
+            } else {
+                tabuleiro.mostrarTabuleiro();
+                System.out.println("Posição inválida...");
             }
         }
     }
 
-    public int pegarEntradaEValidarColunaComPeca(Scanner scanner, String frase, Peca peca) {
+    public Position pegarDestino(Scanner scanner, Peca peca) {
+
+        String frase = "Destino " + peca.getCor() + ": ";
 
         while (true) {
+
             clear();
             System.out.println(frase);
-            String coluna = scanner.next().toUpperCase();
-            char caracterValidado = coluna.charAt(0);
-            for (char c = 'A'; c <= 'H'; c++) {
-                if (caracterValidado == c) {
-                    return transformarCharEmNumero(c);
+            String source = scanner.nextLine().toUpperCase(); // Garantir que a entrada seja em maiúsculas
+
+            // Verifica se a entrada tem pelo menos dois caracteres
+            if (source.length() < 2) {
+                System.out.println("Entrada inválida, tente novamente.");
+                continue;
+            }
+
+            // Verifica se o caractere da coluna está entre 'A' e 'H'
+            if (source.charAt(0) >= 'A' && source.charAt(0) <= 'H') {
+
+                // Converte a coluna de 'A' até 'H' para números (0 a 7)
+                int coluna = transformarCharEmNumero(source.charAt(0));
+
+                // Tenta obter a linha (pode ser um número de 1 a 9 ou maior)
+                int linha;
+                try {
+                    linha = Integer.parseInt(source.substring(1)); // Pega tudo depois do primeiro caractere (a linha)
+                    linha = linha - 1;
                 }
+
+                catch (NumberFormatException e) {
+                    System.out.println("Linha inválida...");
+                    continue;
+                }
+
+                return new Position(linha, coluna);
 
             }
 
-            clear();
-            tabuleiro.mostrarTabuleiroComMovimentos(peca);
-
-        }
-    }
-
-    public int pegarEntradaEValidarColunaSemPeca(Scanner scanner, String frase) {
-
-        while (true) {
-            clear();
-            System.out.println(frase);
-            String coluna = scanner.next().toUpperCase();
-            char caracterValidado = coluna.charAt(0);
-            for (char c = 'A'; c <= 'H'; c++) {
-                if (caracterValidado == c) {
-                    return transformarCharEmNumero(c);
-                }
-
+            else {
+                tabuleiro.mostrarTabuleiroComMovimentos(peca);
+                System.out.println("Posição inválida...");
             }
-
-            clear();
-            tabuleiro.mostrarTabuleiro();
-
         }
     }
 
     public Peca pegarPecaQueVaiSerMovida(Jogador jogador) throws InterruptedException {
 
         while (true) {
-
-            String fraseParaEscolherPeca = jogador.getColor() + ", Digite a linha da peça que você quer mover: ";
-            String fraseParaEscolherColuna = jogador.getColor() + ", Digite a coluna da peça que você quer mover: ";
-            int coluna = pegarEntradaEValidarColunaSemPeca(scanner, fraseParaEscolherColuna);
-            clear();
-            int linha = pegarLinhaSemPeca(scanner, fraseParaEscolherPeca);
-
-            Position posicao = new Position(linha, coluna);
+            Position posicao = pegarOrigem(scanner, jogador);
 
             // Pega peça na posicao escolhida
             Peca peca = tabuleiro.pegarPosicaoEspecifica(posicao);
@@ -160,7 +153,12 @@ public class FuncoesDeComplementoTabuleiro {
             // Se tiver algum conteudo e for igual a cor do jogador
             if (peca != null && peca.getCor() == jogador.getColor()) {
                 // Retorna a peca na posicao especifica
-                return tabuleiro.pegarPosicaoEspecifica(posicao);
+                return peca;
+            }
+
+            if (peca != null && peca.getCor() != jogador.getColor()) {
+                tabuleiro.mostrarTabuleiro();
+                System.out.println("Essa peça não é sua...");
             }
         }
 
@@ -169,12 +167,8 @@ public class FuncoesDeComplementoTabuleiro {
     public Position pegarEChecarPosicaoDestinoValida(Position[][] possiveisMovimentos, Peca peca) {
 
         while (true) {
-            String fraseParaLinhaDestino = "Digite a linha do destino da peça: ";
-            String fraseParaColunaDestino = "Digite a coluna do destino da peça";
-            int coluna = pegarEntradaEValidarColunaComPeca(scanner, fraseParaColunaDestino, peca);
-            int linha = pegarLinhaComPeca(scanner, fraseParaLinhaDestino, peca);
 
-            Position posicaoEscolhida = new Position(linha, coluna);
+            Position posicaoEscolhida = pegarDestino(scanner, peca);
 
             // Verificar se a posição escolhida é válida
 

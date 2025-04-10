@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author Pichau
  */
-public class Peca {
+public abstract class Peca {
 
     private Tabuleiro tabuleiro;
     private Color cor;
@@ -87,9 +87,7 @@ public class Peca {
         return this.cor == other.cor;
     }
 
-    public Position[][] possiveisMovimentos() {
-        return null;
-    }
+    public abstract Position[][] possiveisMovimentos();
 
     public void setPrimeiroMovimento(boolean primeiroMovimento) {
         this.primeiroMovimento = primeiroMovimento;
